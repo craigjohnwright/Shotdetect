@@ -170,6 +170,11 @@ void xml::write_data(string &filename) {
                                      BAD_CAST strflx.str().c_str());
 
     strflx.str("");
+    strflx << (*il).score;
+    rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "score",
+                                     BAD_CAST strflx.str().c_str());
+
+    strflx.str("");
     strflx << (*il).fbegin;
     rc = xmlTextWriterWriteAttribute(writer, BAD_CAST "fbegin",
                                      BAD_CAST strflx.str().c_str());

@@ -194,15 +194,15 @@ int main(int argc, char **argv) {
   }
 
   // Error handling
-  if (!ifile_set || !ofile_set || !id_set) {
+  if (!ifile_set || !id_set) {
     if (!ifile_set) {
       cerr << "ERROR: Input filename is missing or empty. See argument '-i'"
            << endl;
     }
-    if (!ofile_set) {
-      cerr << "ERROR: Output path is missing or empty. See argument '-o'"
-           << endl;
-    }
+    //if (!ofile_set) {
+      //cerr << "ERROR: Output path is missing or empty. See argument '-o'"
+           //<< endl;
+    //}
     if (!id_set) {
       cerr << "ERROR: please specify an alphanumeric id. See argument '-a'"
            << endl;
@@ -216,8 +216,8 @@ int main(int argc, char **argv) {
 
   f.shotlog("Processing movie.");
   f.process();
-  string xml_path = "result.xml";
-  f.x->write_data(xml_path);
+  //string xml_path = "result.xml";
+  //f.x->write_data(xml_path);
   /*string finished_path = f.global_path;
   finished_path += "/finished";
   FILE *fd_finished = fopen(finished_path.c_str(),"w");

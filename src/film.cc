@@ -178,9 +178,9 @@ void film::CompareFrame(AVFrame *pFrame, AVFrame *pFramePrev) {
   int current_shot_f_duration = frame_number - shots.back().fbegin;
   int current_shot_ms_duration = int(current_shot_f_duration * 1000 / fps);
   if (current_shot_ms_duration > this->max_shot_ms_duration) {
-    #ifdef DEBUG
-      cerr << "Maximum shot length reached. Saving..." << endl;
-    #endif
+    // #ifdef DEBUG
+    //   cerr << "Maximum shot length reached. Saving..." << endl;
+    // #endif
     save_shot_with_frames(pFrame, pFramePrev, false);
   }
 }
@@ -211,7 +211,7 @@ void film::free_frame_list(void) {
 /*
 * Saves detected shot and writes selected frames as image files
 */
-void film::save_shot_with_frames(AVFrame* pFrame, AVFrame* pFramePrev, bool last_shot) {
+void film::save_shot_with_frames(AVFrame* pFrame, AVFrame* pFramePrev, bool last_shot, int score) {
   int frame_number = pCodecCtx->frame_number;
   shots.back().fduration = frame_number - shots.back().fbegin;
   shots.back().msduration = int(((shots.back().fduration) * 1000) / fps);
@@ -219,12 +219,18 @@ void film::save_shot_with_frames(AVFrame* pFrame, AVFrame* pFramePrev, bool last
   if (!last_shot) {
     shot s;
     s.fbegin = frame_number;
+    s.score = score;
     s.msbegin = int((frame_number * 1000) / fps);
     s.myid = shots.back().myid + 1;
     shots.push_back(s);
-    #ifdef DEBUG
-      cerr << "Shot log :: " << s.msbegin << endl;
-    #endif
+    // #ifdef DEBUG
+    //   cerr << "Shot log :: " << s.msbegin << endl;
+    // #endif
+
+    /*
+     * Print frame times and scores to scren
+     */
+    cout << ",time:" << s.msbegin << ",score:" << s.score;
 #ifdef WXWIDGETS
     if (this->first_img_set ||
         (display && dialogParent->checkbox_1->GetValue()))
@@ -530,7 +536,7 @@ int film::process() {
   }
 
   if (videoStream != -1) {
-    save_shot_with_frames(pFrameRGB, pFrameRGBprev, true);
+    save_shot_with_frames(pFrameRGB, pFrameRGBprev, true, 1);
     /*
      * Graph 'quantity of movement'
      */

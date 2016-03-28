@@ -14,6 +14,9 @@ class shot {
  public:
   int myid;
 
+  /* track score */
+  double score;
+
   /* Durée en frame */
   int fduration;
   /* Stating point (frame) */
