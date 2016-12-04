@@ -176,7 +176,7 @@ void film::CompareFrame(AVFrame *pFrame, AVFrame *pFramePrev) {
   g->push_rgb_to_hsv(c1tot, c2tot, c3tot);
 
   if ((diff > this->threshold) && (score > this->threshold)) {
-    save_shot_with_frames(pFrame, pFramePrev, false);
+    save_shot_with_frames(pFrame, pFramePrev, false, score);
   }
 
   int frame_number = pCodecCtx->frame_number;
@@ -186,7 +186,7 @@ void film::CompareFrame(AVFrame *pFrame, AVFrame *pFramePrev) {
     // #ifdef DEBUG
     //   cerr << "Maximum shot length reached. Saving..." << endl;
     // #endif
-    save_shot_with_frames(pFrame, pFramePrev, false);
+    save_shot_with_frames(pFrame, pFramePrev, false, score);
   }
 }
 

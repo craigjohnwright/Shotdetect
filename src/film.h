@@ -117,7 +117,7 @@ class film {
   void do_stats(int frame);
   void get_yuv_colors(AVFrame &pFrame);
   void CompareFrame(AVFrame *pFrame, AVFrame *pFramePrev);
-  void save_shot_with_frames(AVFrame *pFrame, AVFrame* pFramePrev, bool last_shot);
+  void save_shot_with_frames(AVFrame *pFrame, AVFrame* pFramePrev, bool last_shot, int score);
   void free_frame_list();
   void pop_frame_list_front();
   graph *g;
