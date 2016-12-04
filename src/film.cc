@@ -34,6 +34,11 @@ extern "C" {
 
 #define DEBUG
 
+#if LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(55,28,1)
+  #define avcodec_alloc_frame av_frame_alloc
+  #define PIX_FMT_RGB24 AV_PIX_FMT_RGB24
+#endif
+
 int film::idfilm = 0;
 
 void film::do_stats(int frame_number) {
